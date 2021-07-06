@@ -12,7 +12,7 @@ msg = Messenger()
 def index():
     """Receive a notification from Webex Teams and handle it"""
     if request.method == 'GET':
-        return f'Request received on local port {port}'
+        return f'Request received on local port {port}, this actually works'
     elif request.method == 'POST':
         if 'application/json' in request.headers.get('Content-Type'):
             # Notification payload, received from Webex Teams webhook
@@ -114,12 +114,14 @@ if __name__ == '__main__':
     
     ngrok_urls = get_ngrok_urls()
     webhook_urls = get_webhook_urls()
+    delete_webhooks()
+    create_webhook(ngrok_urls[0])
 
-    intersect = list(set(ngrok_urls) & set(webhook_urls))
-    if intersect:
-        print(f'Registered webhook: {intersect[0]}')
-    else: 
-        create_webhook(ngrok_urls[0])
+    #intersect = list(set(ngrok_urls) & set(webhook_urls))
+    #if intersect:
+    #    print(f'Registered webhook: {intersect[0]}')
+    #else: 
+    #    create_webhook(ngrok_urls[0])
     
 
     app.run(host="0.0.0.0", port=port, debug=True)

@@ -8,7 +8,6 @@ try:
     with open("./config.yaml", 'r') as yamlfile:
         config = yaml.load(yamlfile, Loader=yaml.FullLoader)
     print("Success: Loaded YAML config file")
-    return config
 except Exception:
     print("Yaml file incomplete or invalid format")
     raise
@@ -19,15 +18,15 @@ except Exception:
 base_url = 'https://api.ciscospark.com/v1/'
 
 class Messenger():
-    def __init__(self, base_url=base_url, api_key=config["api_key"]:
+    def __init__(self, base_url=base_url, api_key=config["api_key"]):
         self.base_url = base_url
         self.api_key = config["api_key"]
         self.headers = {
-            "Authorization": f"Bearer {config["api_key"]}",
+            "Authorization": f"Bearer {config['api_key']}",
             "Content-Type": "application/json"
         }
         self.bot_id = requests.get(f'{self.base_url}/people/me', headers=self.headers).json().get('id')
-
+        
     def get_message(self, message_id):
         """ Retrieve a specific message, specified by message_id """
         print(f'MESSAGE ID: {message_id}')
